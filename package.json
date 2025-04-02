@@ -1,0 +1,23 @@
+{
+  "name": "openai-calendar",
+  "version": "1.0.0",
+  "description": "An application that uses OpenAI to add events to Google Calendar based on natural language prompts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm build && node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "googleapis": "^105.0.0",
+    "openai": "^4.0.0",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/readline-sync": "^1.4.8",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
