@@ -18,18 +18,35 @@ export class GoogleCalendarService {
       scope: ['https://www.googleapis.com/auth/calendar'],
     });
 
-    console.log('Please visit this URL to authorize the application:', url);
+    console.log('\nInstrukcja autoryzacji:');
+    console.log('1. Otwórz poniższy URL w przeglądarce:');
+    console.log(url);
+    console.log('\n2. Zaloguj się i udziel uprawnień aplikacji');
+    console.log('3. Po przekierowaniu, skopiuj kod z adresu URL (parametr "code=")');
+    console.log('   Przykład: jeśli URL to http://localhost:3000/oauth2callback?code=4/ABC123...');
+    console.log('   to skopiuj tylko część "4/ABC123..." (bez code= i innych parametrów)\n');
     
-    // In a real application, you would handle the OAuth2 callback here
-    // For now, we'll use a manual token input process
     const code = await new Promise<string>((resolve) => {
       const readlineSync = require('readline-sync');
-      const authCode = readlineSync.question('Enter the authorization code: ');
-      resolve(authCode);
+      const authCode = readlineSync.question('Wklej kod autoryzacyjny: ');
+      // Decode URL-encoded code
+      const decodedCode = decodeURIComponent(authCode);
+      resolve(decodedCode);
     });
 
-    const { tokens } = await this.oauth2Client.getToken(code);
-    this.oauth2Client.setCredentials(tokens);
+    try {
+      const { tokens } = await this.oauth2Client.getToken(code);
+      this.oauth2Client.setCredentials(tokens);
+      console.log('\nAutoryzacja zakończona sukcesem!');
+    } catch (error: any) {
+      if (error.response?.data?.error === 'invalid_grant') {
+        console.error('\nBłąd autoryzacji:');
+        console.error('- Upewnij się, że kod nie był już wcześniej użyty');
+        console.error('- Kod autoryzacyjny jest ważny tylko przez krótki czas');
+        console.error('- Spróbuj wygenerować nowy kod otwierając URL ponownie');
+      }
+      throw error;
+    }
   }
 
   async addEvent(parsedEvent: ParsedEvent): Promise<void> {
