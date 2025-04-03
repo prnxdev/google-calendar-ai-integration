@@ -55,11 +55,11 @@ export class GoogleCalendarService {
     const event: CalendarEvent = {
       summary: parsedEvent.title,
       start: {
-        dateTime: `${parsedEvent.date}T${parsedEvent.startTime}:00`,
+        dateTime: `${parsedEvent.dates[0]}T${parsedEvent.startTime}:00`,
         timeZone: 'Europe/Warsaw',
       },
       end: {
-        dateTime: `${parsedEvent.date}T${parsedEvent.endTime}:00`,
+        dateTime: `${parsedEvent.dates[0]}T${parsedEvent.endTime}:00`,
         timeZone: 'Europe/Warsaw',
       },
     };

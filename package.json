@@ -1,17 +1,17 @@
 {
   "name": "openai-calendar",
   "version": "1.0.0",
-  "description": "An application that uses OpenAI to add events to Google Calendar based on natural language prompts",
+  "description": "An application that uses Google Gemini to add events to Google Calendar based on natural language prompts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "pnpm build && node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "dotenv": "^16.0.0",
     "googleapis": "^105.0.0",
-    "openai": "^4.0.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {

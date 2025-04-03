@@ -15,5 +15,12 @@ export interface ParsedEvent {
   title: string;
   startTime: string;
   endTime: string;
-  date: string;
+  dates: string[];
+}
+
+export interface ParsedEventRange {
+  title: string;
+  startTime: string;
+  endTime: string;
+  dates: string[];  // Lista dat w formacie YYYY-MM-DD
 }
